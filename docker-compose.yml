@@ -1,0 +1,27 @@
+version: '2'
+services:
+  app:
+    image: wordpress:4.8.2
+    cpu_shares: 100
+    mem_limit: 524288000
+    ports:
+      - "80:80"
+    links:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+
+  db:
+    image: timka/mysql:latest
+    cpu_shares: 100
+    mem_limit: 524288000
+    volumes:
+      - /db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
